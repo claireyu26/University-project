@@ -26,6 +26,7 @@ def getInfo(university):
     #quotes inside quotes: 1) '' 2) \" \"
     #find_element returns the first occurence 
     return info.text #returns gives function a value, replaces getInfo("UCI")
+# print(getInfo("Georgia Institute of Technology"))
 '''
 for i in school_list:
     print(i)
@@ -42,9 +43,6 @@ for i in school_list:
 #Palo Alto University (PAU) is a non-profit, private educational institution in Palo Alto, California, United States. The school was founded in 1975 as the Pacific Graduate School of Psychology (PGSP). Palo Alto University offers two undergraduate degree programs (Bachelor of Science (B.S.) in Psychology and Social Action and B.S. in Business Psychology) and five graduate programs: a Ph.D. in Clinical Psychology; a Psy.D. in Clinical Psychology as part of a consortium with Stanford University, and two master's degree programs: an M.A. in Counseling, and an M.S. in Psychology. PAU subscribes to the practitioner-scientist training model, a variation of the Boulder scientist-practitioner model, which emphasizes clinical practice along with scientific training. PAU has an interconnected relationship with Stanford University and the Stanford University School of Medicine. PAU maintains its doctoral program in conjunction with Stanford University, often employs its students in Stanford research laboratories, and houses faculty members who teach at both institutions.
 
 #Not sure if La Sierra Uni works, but La Sierra University is a private institution that was founded in 1922. It has a total undergraduate enrollment of 1,263 (fall 2022), and the campus size is 150 acres. It utilizes a quarter-based academic calendar. La Sierra University's ranking in the 2024 edition of Best Colleges is Regional Universities West, #41.
-
-
-
 
 
 
