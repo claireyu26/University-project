@@ -1,10 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 import urllib.request
+import re 
 
 def getUniversityBuildings(university):
     if university=="Alliant International University":
         return AlliantBuildings()
+    elif university=="American University":
+        return AmericanBuildings()
     elif university=="American Heritage University of Southern California":
         return AmericanHeritageBuildings()
     elif university=="American Jewish University":
@@ -13,6 +16,8 @@ def getUniversityBuildings(university):
         return AndrewsBuildings()
     elif university=="ArtCenter College of Design":
         return ArtCenterBuildings()
+    elif university=="Bard College":
+        return BardBuildings()
     elif university=="Barnard University":
         return BarnardBuildings()
     elif university=="Berklee College of Music":
@@ -107,6 +112,10 @@ def getUniversityBuildings(university):
         return EmoryBuildings()
     elif university=="Florida State University":
         return FloridaStateBuildings()
+    elif university=="Franklin & Marshall College":
+        return FranklinMarshallBuildings()
+    elif university=="Georgia Institute of Technology":
+        return GeorgiaTechBuildings()
     elif university=="George Mason University":
         return GeorgeMasonBuildings()
     elif university=="George Washington University":
@@ -205,14 +214,182 @@ def getUniversityBuildings(university):
         return RensselaerBuildings()
     elif university=="Rhode Island School of Design":
         return RhodeIslandDesignBuildings()
+    elif university=="Rice University":
+        return RiceBuildings()
+    elif university=="Rochester Institute of Technology":
+        return RochesterTechBuildings()
+    elif university=="Rutgers University":
+        return RutgersBuildings()
+    elif university=="Saint Joseph's University - Hawk Hill Campus":
+        return SaintJosephHawkHillBuildings()
+    elif university=="Saint Mary's College of California":
+        return SaintMaryBuildings()
+    elif university=="Samuel Merritt University":
+        return SamuelMerrittBuildings()
+    elif university=="San Diego Christian College":
+        return SanDiegoChristianBuildings()
+    elif university=="San Diego State University":
+        return SanDiegoStateBuildings()
+    elif university=="San Francisco State University":
+        return SanFranciscoStateBuildings()
+    elif university=="San Joaquin College of Law":
+        return SanJoaquinBuildings()
+    elif university=="Santa Clara University":
+        return SantaClaraBuildings()
+    elif university=="Saybrook University":
+        return SaybrookBuildings()
+    elif university=="Scripps College":
+        return ScrippsBuildings()
+    elif university=="Simpson University":
+        return SimpsonBuildings()
+    elif university=="Smith College":
+        return SmithBuildings()
+    elif university=="Soka University of America":
+        return SokaBuildings()
+    elif university=="Sonoma State University":
+        return SonomaStateBuildings()
+    elif university=="Southern Methodist University":
+        return SouthernMethodistBuildings()
+    elif university=="Southwestern Law School":
+        return SouthwesternLawBuildings()
+    elif university=="Stanford University":
+        return StanfordBuildings()
+    elif university=="Swathmore College":
+        return SwathmoreBuildings()
+    elif university=="Syracuse University":
+        return SyracuseBuildings()
+    elif university=="Temple University":
+        return TempleBuildings()
+    elif university=="Texas A&M University":
+        return TexasAMBuildings()
+    elif university=="The College of New Jersey":
+        return CollegeOfNJBuildings()
+    elif university=="The Master's University":
+        return MastersBuildings()
+    elif university=="The New School":
+        return NewSchoolBuildings()
+    elif university=="Thomas Aquinas College":
+        return ThomasAquinasBuildings()
+    elif university=="Touro University California":
+        return TouroBuildings()
+    elif university=="Tufts University":
+        return TuftsBuildings()
+    elif university=="Tulane University":
+        return TulaneBuildings()
+    elif university=="University of Chicago":
+        return ChicagoBuildings()
+    elif university=="University of Colorado Boulder":
+        return ColoradoBoulderBuildings()
+    elif university=="University of Colorado Denver":
+        return ColoradoDenverBuildings()
+    elif university=="University of Connecticut":
+        return ConnecticutBuildings()
+    elif university=="University of Delaware":
+        return DelawareBuildings()
+    elif university=="University of Denver":
+        return DenverBuildings()
+    elif university=="University of Florida":
+        return FloridaBuildings()
+    elif university=="University of Hawaii at Manoa":
+        return HawaiiManoaBuildings()
+    elif university=="University of Houston":
+        return HoustonBuildings()
+    elif university=="University of Kentucky":
+        return KentuckyBuildings()
+    elif university=="University of La Verne":
+        return LaVerneBuildings()
+    elif university=="University of Louisville":
+        return LouisvilleBuildings()
+    elif university=="University of Maryland":
+        return MarylandBuildings()
+    elif university=="University of Maryland, Baltimore County":
+        return MarylandBaltimoreCountyBuildings()
+    elif university=="University of Massachusetts Amherst":
+        return MassachusettsAmherstBuildings()
+    elif university=="University of Miami":
+        return MiamiBuildings()
+    elif university=="University of Michigan":
+        return MichiganBuildings()
+    elif university=="University of North Carolina at Chapel Hill":
+        return NorthCarolinaChapelHillBuildings()
+    elif university=="University of Notre Dame":
+        return NotreDameBuildings()
+    elif university=="University of Oregon":
+        return OregonBuildings()
+    elif university=="University of Pennsylvania":
+        return UPennBuildings()
+    elif university=="University of Pittsburgh":
+        return PittsburghBuildings()
+    elif university=="University of Redlands":
+        return RedlandsBuildings()
+    elif university=="University of Rochester": 
+        return RochesterBuildings()
+    elif university=="University of San Diego":
+        return SanDiegoBuildings()
+    elif university=="University of San Francisco":
+        return SanFranciscoBuildings()
+    elif university=="University of Texas at Austin":
+        return TexasAustinBuildings()
+    elif university=="University of Vermont":
+        return VermontBuildings()
+    elif university=="University of Virginia":
+        return VirginiaBuildings()
+    elif university=="University of Washington":
+        return WashingtonBuildings()
+    elif university=="University of West Los Angeles":
+        return WestLosAngelesBuildings()
+    elif university=="University of Wisconsin-Madison":
+        return WisconsinMadisonBuildings()
+    elif university=="University of the Pacific":
+        return PacificBuildings()
+    elif university=="University of the People":
+        return PeopleBuildings()
+    elif university=="University of the West":
+        return WestBuildings()
+    elif university=="Ursinus College":
+        return UrsinusBuildings()
+    elif university=="Vanderbilt University":
+        return VanderbiltBuildings()
+    elif university=="Vanguard University":
+        return VanguardBUildings()
+    elif university=="Vassar College":
+        return VassarBuildings()
+    elif university=="Virginia Commonwealth University":
+        return VirginiaCommonwealthBuildings()
+    elif university=="Virginia Tech":
+        return VirginiaTechBuildings()
+    elif university=="Wake Forest University":
+        return WakeForestBuildings()
+    elif university=="Washington University in St. Louis":
+        return WashUBuildings()
+    elif university=="Wesleyan University":
+        return WesleyanBuildings()
+    elif university=="Westcliff University":
+        return WestcliffBuildings()
+    elif university=="Western State College of Law":
+        return WesternStateBuildings()
+    elif university=="Western University of Health Sciences":
+        return WesternHealthSciencesBuildings()
+    elif university=="Westmont College":
+        return WestmontBuildings()
+    elif university=="Whittier College":
+        return WhittierBuildings()
+    elif university=="Woodbury University":
+        return WoodburyBuildings()
+    elif university=="Worcester Polytechnic Institute":
+        return WorcesterBuildings()
+    elif university=="Yale University":
+        return YaleBuildings()
+    elif university=="Zaytuna College":
+        return ZaytunaBuildings()
 
-    
     elif university=="University of California, Los Angeles":
         return UCLABuildings()
     elif university=="University of Southern California":
         return USCBuildings()
     elif university=="University of California, Irvine":
         return UCIBuildings()
+    
 def UCLABuildings():
     url="https://registrar.ucla.edu/faculty-staff/classrooms-and-scheduling/building-list"
     req=requests.get(url) #gets all html code from the url
@@ -253,13 +430,17 @@ def CalPolyPomonaBuildings():
     buildings=[]
     for i in range (1,len(tableData)):
         buildings.append(tableData[i].get_text())
-    buildingList=["1", buildings, []]
+    buildingList=[1, buildings, []]
     return(buildingList)
 def AlliantBuildings():
-    buildingList=[1, [],[]]
+    buildingList=[8, ["Kauffman Library","Office of Accessibility"],["Fresno Campus","Irvine Campus","Los Angeles Campus","Phoenix Campus","Sacramento Campus","San Diego Campus","Emeryville Campus","Online Programs"]]
+    return buildingList
+def AmericanBuildings():
+    buildings=["Anderson Hall","Asbury Building","Battelle-Tompkins","Beeghly Building","Bender Library","Butler Pavilion","Cassell Hall","Centennial Hall","Child Development Center","Clark Hall","Constitution Hall","Don Myers Technology and Innovation Building","Duber Hall","East Quad Building","Federal Hall","Friedheim Quadrangle","Gray Hall","Hall of Science","Hamilton Building",'Hughes Hall',"Hurst Hall","Jacobs Recreation Complex","Katzen Arts Center","Kay Spiritual Life Center","Kerwin Hall","Kogod School of Business","Kreeger Building","Leonard Hall","Letts Hall","Mary Graydon Center","McCabe Hall","McDowell Hall","McKinley Building","Media Production Center","Nebraska Hall",'Osborn Building',"President's Office Building", "Reeves Field","Rockwood Building","Roper Hall","School of International Service","Sports Center","Sports Center Annex","Watkins Building","Woods-Brown Ampitheather"]
+    buildingList=[1,buildings,[]]
     return buildingList
 def AmericanHeritageBuildings():
-    buildingList=[1, [],[]]
+    buildingList=[1, ["Main Building"],[]]
     return buildingList
 def AmericanJewishBuildings():
     buildingList=[1, [],[]]
@@ -287,6 +468,19 @@ def ArtCenterBuildings():
     buildings=[]
     for i in range(1,len(tableData)-2):
         buildings.append(tableData[i].get_text())
+    buildingList=[1, buildings, []]
+    return (buildingList)
+def BardBuildings():
+    url="https://www.bard.edu/catalogue/index.php?aid=1208507&sid=671464"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("strong")
+    buildings=[]
+    for i in range(30,len(tableData)):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace(":\xa0","")
+        buildings[i]=buildings[i].replace(":","")
     buildingList=[1, buildings, []]
     return (buildingList)
 def BarnardBuildings():
@@ -430,7 +624,7 @@ def ChicoBuildings():
     return (buildingList)
 def EastBayBuildings():
    #buildings are in pdf format so manuel input
-    buildings=[["Art & Education", "Accessibility Services", "Applied Sciences Center", "Associated Students Inc.","Pioneer Bookstore", "C.E. Smith Museum of Anthropology","CORE", "Corporation Yard/Receiving","Dining Commons","Diversity and Inclusion Student Center","Field House and Offices","Facilities Maintenance","Food Stand","Stduent Health Center","University Library", "Music Building","Meiklejohn Hall","Pioneer Amphitheatre","Physical Education & Gym", "Parking Services","Pioneer Heights Student Housing","Robinson Hall","Recreation and Wellness Center","Student Services & Adminstration","Science Building - North","Science Building - South","Student and Faculty Support", "University Theatre","University Union", "Valley Business and Technology Center","Welcome Center for Future Students","Welcome Center parking"],["Academic Services","Contra Costa Hall","Facilities Operation", "Library","Campus Union"],[]]
+    buildings=["Art & Education", "Accessibility Services", "Applied Sciences Center", "Associated Students Inc.","Pioneer Bookstore", "C.E. Smith Museum of Anthropology","CORE", "Corporation Yard/Receiving","Dining Commons","Diversity and Inclusion Student Center","Field House and Offices","Facilities Maintenance","Food Stand","Stduent Health Center","University Library", "Music Building","Meiklejohn Hall","Pioneer Amphitheatre","Physical Education & Gym", "Parking Services","Pioneer Heights Student Housing","Robinson Hall","Recreation and Wellness Center","Student Services & Adminstration","Science Building - North","Science Building - South","Student and Faculty Support", "University Theatre","University Union", "Valley Business and Technology Center","Welcome Center for Future Students","Welcome Center parking"],["Academic Services","Contra Costa Hall","Facilities Operation", "Library","Campus Union"]
     buildingList=[3,buildings,["Hayward","Concord","Oakland"]]
     return (buildingList)
 def FresnoBuildings():
@@ -686,6 +880,24 @@ def EmoryBuildings():
         buildings.append(tableData[i].get_text())
     buildingList=[4,buildings, ["Atlanta Campus","Briarcliff Property"," Clairmont Campus", "Oxford Campus"]]
     return buildingList
+def FranklinMarshallBuildings():
+    url="https://www.fandm.edu/housing/on-campus-residential-facilities.html"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(104,len(tableData)-36):
+        buildings.append(tableData[i].get_text())
+    url="https://library.fandm.edu/c.php?g=933708&p=6730459"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("b")
+    for i in range(0,len(tableData)):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace("\xa0"," ")
+    buildingList=[1,buildings, []]
+    return buildingList
 def FloridaStateBuildings():
     buildings=["Advocacy Center - College of Law","Alligator Point - President's Cottage","Alligator Pt.","Alpha Dela Pi Pavilion","Alumni Center Facility","Ame Building","Arlington Building","Art Teaching Labs","Askew Student Life Center","Ausley House - Village Green - College of Law","Azalea Hall","B.K. Roberts Hall - College of Law","Bat House - Civic Center","Bellamy Building","Bill's Bookstore","Biology Unit I","Biomedical Research Facility","Broward Hall","Bryan Hall","Cage Wash Facility","Caldwell House - Village Green - College of Law","Caps Dielectrics Labs","Caps High Bay Lab","Caps Medium Voltage Lab",'Carnaghi Arts Building',"Carothers Hall","Carraway Building","Cawthon Hall","Challenger Learning Center","Chemical Science Laboratories","Child Development Center","City Centre Building","Cob - Jim Moran Institute","Coburn Wellness Center","Collier Clinic - College of Medicine","Collins Research Building","COM - Autism Institute","COM - Daytona State College - McKinnon Hall","COM - Florida Medical Practice Plan","COM - Ft. Pierce Regional Medical Facility","COM - Pensacola Regional Medical Facility","COM - Sarasota Regional Campus","COM - Tallahassee Regional Campus","Creighton/Bayou Building","Criminology and Criminal Justice Building","Critchfield Hall","Damon House - Village Green - College of Law","DC Magnet Building","DeGraff Hall East","DeGraff Hall West","Deviney Hall","Diffenbaugh Building","Dirac Science Library","Dittmer Chemistry Lab","Dodd Hall","Dodd Lecture Hall","Dorman Hall","Dunlap Success Center","Duxbury Hall","Energy Resesarch Facility","Engineering Portable", "Engineering Lab Building","Eoas Building","ETV Transmitter Building 2","Facility for Arts Research","FAMU - FSU Engineering Building","FARM - Animal Pen","FARM - Lab Animal Resources", "FARM - Radiation Storage","FARM - Roofing Material Storage", "FARM - Storage Building","FARM - Theater Scene Storage", "FDLE Mail Facility","FHP Academy","FHP Dorm","Fine Arts Building","Fisher Lecture Hall","Florida Capitol Building","Frank Shaw Building - Innovation Park","FSU Foundation Building","FSU Primary Health - College of Medicine","FSUS Science/Intermediate Building","FSUS Steam Building","General Science Building","Gilchrist Hall","Grenne-Lewis House","Harpe-Johnson Building","Hecht House","Hobby-Harrison/Cawthon House - Village Green - College of Law","Hoffman Teaching Lab","Honors Scholars & Fellows","Housewright Music Building","Howser Batting Tunnel","Jennie Murphree Hall","Jim Moran Building","Johnson Building - Fuqua Resesarch Complex",'Johnston Building',"Kasha Laboratory","Keen Building","Kellogg Building","Kemper Lab","King Life Science Building","Kuersteiner Music Building","Lafayette Building 1339","Landis Hall","Law Research Center - College of Law","Leach Center","Legacy Hall (College of Business)","Liberty Square Building","Longmire Building","Love Building","Mabry Building","Magnolia Hall","Marine Lab","McCollum Hall","McIntosh Track & Field Building","Mendenhall Building","Miami-Dade Courthouse","Morcom Mechanical Building","Morgan Building - Fuqua Research Complex","New Student Union","NMR Building","Nursery","NW Residence Hall","Opera Scene Shop","Pearl Tyner Welcome Center","Pepper Building","President's House","Psychology Department Auditorium","Ragans Hall","Recycling Center","Research Building - College of Medicine","Research Complex - Commonwealth","Research's Entrepreneurial Building","Reynolds Hall","Richards Building","Rogers Hall","Rotunda - College of Law","Rovetta Building","Salley Hall","Sand Volleyball Building","Sandels Building","Seminole Landing","Shaw Building (Main Campus)","Shores Building","Sliger Building - Fuqua Research Complex","Stavros Center","Stiles-Smith Team Building","Stone Building","Strozier Library","Student Services Building","Supreme Court Building","Tallahassee Memorial Hospital","Tanner Hall","Technology Services Building","Thagard Building","The Clock Building","The Collegiate School","The Lab","Theatre Annex","Trasher Building - College of Medicine","Traditions Hall","Tucker Civic Center","Tully Gym",'Turlington Building','Turnbull Conference Center',"University center","Veterans Legacy center","Warren Building","Westcott Building","Westcott Welcome Center","Wildwood Halls","Williams Building","Winchester Building"]
     buildingList=[1,buildings, []]
@@ -693,6 +905,16 @@ def FloridaStateBuildings():
 def GeorgeMasonBuildings():
     buildings=["Adams Hall","Alan and Sally Merten Hall","Amherst Hall","Angel Cabrera Global Center","Aquia Building","Art and Design Building","Blue Ridge Hall","Brunswick Hall","Carow Hall","Carroll Hall","Carty House","Center for the Arts","Child Development Center","Commonwealth Hall",'David King Hall',"Democracy Lane","Dickenson Hall","Dominion Hall","Donald and Nancy de Laski Performing Arts Building","East Building","Eisenhower Hall","Enterprise Hall","Essex Hall","Exploratory Hall","Fenwick Library","Finley Buildings","Grayson Hall","Hampton Roads Hall","Hanover Hall","Harris Theatre","Harrison Hall","Horizon Hall","Innovation Hall","Jackson Hall","James Buchanan Hall","Jefferson Hall","Johnson Center","Kelley II","Kennedy Hall","Krasnow Institute","Krug Hall","Lecture Hall","Liberty Square","Lincoln Hall","Long and Kimmy Nguyen Engineering Building","Madison Hall","Mason Enterprise center","Mathy House","Monroe Hall","Music/Theater Building","Northeast Module","Northeast Module II","Northern Neck", "Nottoway Annex","Peterson Hall","Peterson Population Health Center","Piedmont Hall","Planetary Hall","Potomac Heights","Research Hall","Rivanna Module","Roberts House","Rogers Hall","Roosevelt Hall","Sandbridge Hall","Skyline Fitness Center","Southside Dining Hall","Student Union Building I","Tallwood House","Taylor Hall","The Hub","Thompson Hall","Tidewater Hall",'Truman Hall','Washington Hall',"West Building","West PE Module","Whitetop Hall","Wilson Hall","Fuse at Mason Square","Van Metre Hall","Hazel Hall","Vernon Smith Hall","3300 Fairfax Drive","933 N Kenmore Street","Beacon Hall","Biomedical Resesarch Laboratory","BRL Annex","Katherine G. Johnson Hall","Colgan Hall","Discovery Hall","Forensics Farm","Hylton Performing Arts Center","Hylton Performing Arts Center - Education Wing","Innovation Park","Institute for Advanced Biomedical Research","Life Sciences Engineering Building","Physical Plant Compound"]
     buildingList=[3,buildings, ["Fairfax Campus","Mason Square Campus","Science & Technology Campus"]]
+    return buildingList
+def GeorgiaTechBuildings():
+    url="https://avservices.gatech.edu/buildings/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("h5")
+    buildings=[]
+    for i in range(0,len(tableData)):
+        buildings.append(tableData[i].get_text().strip())
+    buildingList=[1,buildings, []]
     return buildingList
 def GeorgeWashingtonBuildings():
     url="https://explore.gwu.edu/buildings"
@@ -1046,7 +1268,7 @@ def PurdueBuildings():
     req=requests.get(url)
     soup=BeautifulSoup(req.content,"html5lib")
     buildingsAll=[]
-    for i in soup.body.children: #alternative method
+    for i in soup.body.children: #ALTERNATIVE METHOD
         buildingsAll.append(i.string)
     buildings=[]
     for i in range(9,len(buildingsAll),5):
@@ -1065,122 +1287,827 @@ def RensselaerBuildings():
     buildingList=[1,buildings, []]
     return buildingList
 def RhodeIslandDesignBuildings():
-    buildings=["68-72 South Main Street","173 Benefit Street","Aldrich Building","Angell Street Studios","Auditorium Building","Bank Building","Barstow House","Bayard Ewing Building (BEB)","Benson Hall","Canal Street Studios","Carpenter House","Carr House","Center for Integrative Technologies (CIT)","Central Power Plant (CPP)","Chace Center",""]
+    buildings=["68-72 South Main Street","173 Benefit Street","Aldrich Building","Angell Street Studios","Auditorium Building","Bank Building","Barstow House","Bayard Ewing Building (BEB)","Benson Hall","Canal Street Studios","Carpenter House","Carr House","Center for Integrative Technologies (CIT)","Central Power Plant (CPP)","Chace Center","College Building","Colonial Apartments","Congdon House","Design Center","Dexter House","Dexter House Studio","Dunnell House","Dwight House","Dyer Street Building - 123","East Hall","Ewing Multicutural Center","Firehouse","Fletcher Building","Homer Hall","Illustration Studies Building (ISB)","Industrial Design Building","Kinsley Warehouse","Larned House","Mandle Center (15 West)","Market House","Meeting Street Studios","Memorial Hall","Metcalf Building","Nickerson Hall","North Hall","Pardon Miller House","Point Street Studios","President's House","RISD Museum","Somain Barn Building","Somain Building 1","Somain Building 2","Somain Building 3","Somain Building 3","South Hall","Tanner Building","The House At Tillinghast Place","Tillinghast Place","Washington Place","Waterman Street Building","Weybosset Street Studios","What Cheer Garage + Studios","Woods-Gerry House"]
     buildingList=[1,buildings,[]]
     return buildingList
-print(getUniversityBuildings("Purdue University"))
+def RiceBuildings():
+    url="https://registrar.rice.edu/facstaff/buildings-and-classrooms"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(1,len(tableData),2):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def RochesterTechBuildings():
+    url="https://www.rit.edu/facilitiesmanagement/buildings-maps"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(2,len(tableData),3):
+        buildings.append(tableData[i].get_text().strip())
+    buildingList=[1,buildings, []]
+    return buildingList
+def RutgersBuildings():
+    url="https://dcs.rutgers.edu/classrooms/building-identification-codes"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(5,len(tableData),4):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def SaintJosephHawkHillBuildings():
+    url="https://en.wikipedia.org/wiki/List_of_Saint_Joseph%27s_University_buildings"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("li")
+    buildings=[]
+    for i in range(50,len(tableData)-52):
+        buildings.append(tableData[i].get_text())
+    cleaned_buildings = [building.split(',', 1)[0] for building in buildings]
+    buildingList=[1,cleaned_buildings, []]
+    return buildingList
+def SaintMaryBuildings():
+    buildings=["Edward S. Ageno East","Edward S. Ageno West","Ferdinand and Camille Ageno Hall (C)","Marjorie David Ageno Hall (B)","Micheal E. Ageno Hall (A)","Aquinas Hall","Assumption Hall","Augustine Hall","Becket Hall","Claeys Hall North","Claeys Hall South","De La Salle Hall","Freitas Hall","Guerrieri Hall East","Guerrieri Hall West","Justin Hall","Mitty Hall","More Hall","Sabatte Hall","Syufy Hall","Thille Hall","Brousseau Hall","Brother Cornelius Art Center","Dante Hall","Filippi Academic Hall","Galileo Hall","Garaventa Hall","Geissberge Observatory","Korth Academic Center","Power Plant","Psychology","SMC Museum of Art","St. Albert Hall Library","Sichel Hall","Syufy Performing Arts","Oliver Hall","Delphine Intercultural Center","Bookstore","Fenlon Hall","Brother Urban Gregory Hall (BUG)","Hagerty Lounge","LeFevre Threatre","Saint Mary's Chapel","Siena House","Soda Activity Center","St. Joseph Hall","Brother Jerome West Hall - Visitory Center"]
+    buildingList=[1,buildings, []]
+    return buildingList
+def SamuelMerrittBuildings():
+    url="https://www.samuelmerritt.edu/discover/smu-campuses/oakland-campus"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("strong")
+    buildings=[]
+    for i in range(0,len(tableData)):
+        buildings.append(tableData[i].get_text())
+    tableData2=soup.findAll("b")
+    for i in range(0,len(tableData2)):
+        buildings.append(tableData2[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace('\xa0',' ')
+    buildings.remove(buildings[12])
+    buildingList=[3,buildings, ["Oakland Campus","Sacramento Campus","San Francisco Peninsula Campus"]]
+    return buildingList
+def SanDiegoChristianBuildings():
+    buildings=["San Diego Christian College Library","Gillespie Field"]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def SanDiegoStateBuildings():
+    url="https://directory.sdsu.edu/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(1,len(tableData),2):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def SanFranciscoStateBuildings():
+    url="https://maps.sfsu.edu/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(1,len(tableData),2):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def SanJoaquinBuildings():
+    buildings=["New American Legal Clinic","Mediterranean Renaissance building"]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def SantaClaraBuildings():
+    url="https://university-operations.scu.edu/facilities/space-data/building-information/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(90,len(tableData)-17):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace("\xa0"," ")
+    buildingList=[1,buildings, []]
+    return buildingList
+def SaybrookBuildings():
+    url="https://cms.concept3d.com/map/accessible.php?id=1910&cId=52707"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(2,len(tableData)):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def ScrippsBuildings():
+    buildings=["Alumnae Field and Underground","Balch Auditorium","Balch Hall","Baxter Hall","Bowling Green","Buildings and Grounds Department","Dartmouth House, 1030 EmPOWER Center","Denison Library, Ella Strong Sicilian Court","Edwards Humanities Building","Elm Tree Lawn","Facilities Department","Field House, Sallie Tiernan","Honnold Gate","Honnold/Mudd Library","Huntley Bookstore","Inscription Walk","Jaqua Quadrangle","Keck Science Department, W.M.","Malott Commons","Margaret Fowler Garden","McAlister Center","Millard Sheets Art Center","Performing Arts Center","Pool","Browning Scripps, Ellen","Clark, Grace Scripps","Dorsey, Susan Miller","Frankel, Cecil and Bessie","Gabrielle Jungels-Winkler","Kimberly, Mary","NEW Hall", "Routt, Mary","Routt Apartments","Toll, Eleanor Joy","Wilbur, Marguerite and Van Rensselaer","Revelle House, Ellen Clark","Richardson Dance Studio","SARLO","SCORE","Steele Hall","Vita Nova Hall","Wood Steps, Elizabeth Monroe","240 House"]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def SimpsonBuildings():
+    buildings=["Owen Student Services Center","Admissions","LaBaume-Rudat Hall","Lecture Hall / A.W. Tozer Seminary","Science & Nursing Center","Laboratories","Francis-Grubbs Learning Center","Library","Future STEM Building","Maintenance Building","James M. Grant Student Life Center","Gymnasium / Music","Emeriti Dining Center","The Caf","Prayer Chapel","Collord-Humphries","Mod 7 Training Room","Thompson-Mangham Residence Hall","Irwin-Shellrude Residence Hall","Morgan-Sharpe Residence Hall","Currie-Ediger Residence Hall","Cooper-Heath Residence Hall","Measell-Taylor Residence Hall"]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def SmithBuildings():
+    buildings=["8 College Lane","10 Prospect Street","Kahn Liberal Arts Institute","Offices/Student Activities","College Administration","40 Green Street","Faculty Offices","Development Office","Wurtele Center for Leadership","Admission Office","Ainsworth Gymnasium","Alumnae Gymnasium","Alumnae House","Bass Hall","Boathouse","Brown Fine Arts Center","Graham Hall","Hillyer Hall", "Hillyer Art Library","Museum of Art",'Burton Hall',"Campus Center","Campus Center","Capen Annex","Clark Hall","Conference Center","Crew House","David Center","Dawes House","Dewey Hall","Drew Hall","Facilities Management","Field House","Ford Hall","The Gables","Garrison Hall","Gill Hall","Hatfield Hall","Helen Hills Hills Chapel","Henshaw Complex","Indoor Track and Tennis Facility","John M. Greene Hall","Lilly Hall","Lyman Plant House and Conservatory","McConnell Hall","Mendenhall Center for the Performing Arts","Morgan Hall","Neilson Library","Pierce Hall","President's House","Sabin-Reed Hall","Sage Hall","Scott Gymnasium","Schacht Center for Health and Wellness","Seelye Hall","Stoddard Hall and Annex","Tilly Hall","Tyler Annex","Unity House","Wright Hall","Young Library","Albright House","Baldwin House","Capen House","Chapin House","Mary Ellen Chase House","Comstock House","Conway House","Cushing House","Cutter House","Eleanor Duckett House","Ellen Emerson House","54 Green Street","44 Green Street","Friedman Complex","Gardiner House","Haven House","Hopkins House","Hubbard House","Jordan House","Franklin King House","Lamont House","Lawrence House","Morris House","Morrow House","Northrop House","150 Elm Street","Park Annex","Park House","Parsons Annex","Parsons House","Laura Scales House","Sessions Annex","Sessions House","Talbot House","Tenney House","Tyler House","Washburn House","Wesley House","Wilder House","Martha Wilson House","Ziskind House"]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def SokaBuildings():
+    buildings=["Scientific Research Laboratories","Soka Instructional Garden","Soka Instructional Aquaculture Facility","The Hamersley Environment Microbiology Laboratory","Life Sciences Building","Luis and Linda Nieves Observatory","Creative Arts Studio","Language and Culture Lab","Recreation Center","Peace Fountain & Lake","Founders Hall","Soka Performing Arts Center","Wangari Maathai Hall","Linus & Ava Helen Pauling Hall","Science Building","Mohandas & Kasturba Gandhi Hall","Daisaku & Kaneko Library","student Center","Sunrise Residence Hall","Abeona Residence Hall","Somnus Residence Hall","Sunset Residence Hall","Umoja Residence Hall","Aurora Residence Hall","Horizon Residence Hall","Lokahi  Residence Hall","Ubuntu Residence Hall","Acjachemen Residence Hall","Small Conference Center","Athenaeum","Guest Residence","Aliso & Wood Canyons Wilderness Park","Facilities Building"]
+    buildingList=[1,buildings, []]
+    return buildingList
+def SonomaStateBuildings():
+    buildings=["Alumni Grove","Athropological Studies Center","Art Building","Beaujolais Village","Bookstore","Building 49","Cabernet Village","Carson Hall","Children's School","Cooperage","Darwin Hall","Environmental Technology Center","Facilities Service","Fieldhouse","Green Music Center","Gymnasium","Holocaust & Genocide Memorial Grove","International Hall","Ives Hall","Lakes","Library","Nichols Hall","Observatory","Person Theatre","Recreation Center","Salazar Hall","Sauvignon Village","Schroeder Hall","Tuscany Village","Verdot Village","Weill Hall","Zinfandal Village"]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def SouthernMethodistBuildings():
+    url="https://www.smu.edu/aboutsmu/maps/buildingindex"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(0,len(tableData)):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def SouthwesternLawBuildings():
+    buildings=["Westmoreland Building","Bullocks Wilshire Builidng","Leigh Taylor Law Library","Julian Dixon Courtroom and Advocacy Center"]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def StanfordBuildings():
+    url="https://en.wikipedia.org/wiki/Category:Stanford_University_buildings_and_structures"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(44,len(tableData)-22):
+        buildings.append(tableData[i].get_text())
+    additional=["Allen Center for Integrated Systems","Applied Physics Building","Arboretum Children's Center","Arrilaga Alumni Center","Bechtel International Center","Black Community Services Center","Blake Wilbur Clinic","Bolivar House","Bowman Alumni House","Braun Music Center","Carnegie Institution","Cedar Hall","Center for Advanced Study in Behaviorial Science","Center for Educational Research at Stanford","Center for Turbulence Research","Chemical Biology Lorry Lokey","Codura Hall","Cummings Art Building","Cypress Hall","Durand Builidng","Electrical Engineering Building","Forsythe Hall","Gates Computer Sciences","Gilbert Biologial Sciences Building","Green Earth Sciences Building","High Energy Physics Lab","Keck Science Building","Landau Economics","School of Law","Mariposa House","Mayer Cancer Biology","School of Medicine","Meyer Library","Mitchell Earth Sciences Building","Memorial Church","Moore Materials Research","Mudd Chemistry Building","National Bureau of Econ. Research","Old Chemistry Building","Packard Children's Hospital","Pine Hall","Recycling Center","Redwood Hall","Sequoia Hall","Serra House","Skilling Building","Spruce Hall","Stanford Auxiliary Library","Sweet Hall","Stauffer Buildings","Track House","Ventura Hall","Wallenberg Hall","William R. Hewlett Teaching Center"]
+    for i in range(len(additional)):
+        buildings.append(additional[i])
+    buildingList=[1,buildings, []]
+    return buildingList
+def SwathmoreBuildings():
+    url="https://www.sccs.swarthmore.edu/users/03/dbing/history/buildings.html"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(5,len(tableData),4):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def SyracuseBuildings():
+    url="https://library.syracuse.edu/special-collections-research-center/university-archives/buildings/alphabetical-list-of-su-buildings/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(119,len(tableData)-13):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def TempleBuildings():
+    url="https://www.collegemagazine.com/10-most-eccentric-pieces-of-architecture-at-temple-university/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("h3")
+    buildings=[]
+    for i in range(0,len(tableData)-25):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace("\xa0","")
+    url2="https://en.wikipedia.org/wiki/Campus_of_Temple_University"
+    req=requests.get(url2)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("dt")
+    for i in range(0,len(tableData)):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def TexasAMBuildings():
+    url="https://ssc.tamu.edu/buildings/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(0,len(tableData),4):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].lower()
+        buildings[i]=buildings[i].title()
+    buildingList=[1,buildings, []]
+    return buildingList
+def CollegeOfNJBuildings():
+    url="https://libguides.tcnj.edu/c.php?g=628008&p=4412193"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("p")
+    buildings=[]
+    for i in range(55,len(tableData),3):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].title()
+    buildingList=[1,buildings, []]
+    return buildingList
+def MastersBuildings():
+    buildings=["Reese Center for Science and Mathematics","Dunkin Student Center/Mustang Grill","Alumni House/Development/Chancellor's Office","Computer & Information Sciences","Powell Library/Legacy Center","JJ Rutherford Admin./Admissions/Financial Aid","Student Employment & Academic Resource Center","Computer Center","Vider Administrative Services","Wood Shop","King Hall/Student Activities","Campus Production","Hotchkiss Hall",'Slight Hall',"Dixon Hall","Waldock Hall",'C.W. Smith Hall',"Sweazy Hall","Tennis Courts","TMU Online","Health Center","Pearl C. Schaffer School of Education Center","Campus Safety","The MacArthur Center/Bross Court","Trophy Coffee","Louis Herwaldt Stadium","Fitness Center","Kinesiology and Physical Education","Cross Country Clubhouse","Plant Operations","Soccer Clubhouse","Communication Center","Biblical Studies Center","Music Center","Business Center","English and History Center"]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def NewSchoolBuildings():
+    url="https://www.newschool.edu/buildings/venue-descriptions/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("h5")
+    buildings=[]
+    for i in range(0,len(tableData)):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].title()
+    buildingList=[1,buildings, []]
+    return buildingList
+def ThomasAquinasBuildings():
+    url="https://www.thomasaquinas.edu/about/one-program-two-coasts/california/campus-map"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(2,len(tableData),2):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace('\xa0'," ")
+    buildings.pop(23)
+    buildingList=[1,buildings, []]
+    return buildingList
+def TouroBuildings():
+    buildings=["Truett Hall","Lander Hall","Farragut Inn","Wilderman Hall/College of Education and Health Sciences","Metabolic Research Center/Counseling & Student Health Center","College of Osteopathic Medicine","Library","IT Department","Pharmacy Practice Center","Student Garden","MOBEC","Outdoor Gym",'Meditation Garden',"The Grove","Harter Way","Mare Island Naval Hospital","Main Entrance","Thompson Hall"]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def TuftsBuildings():
+    url="https://m.famousfix.com/list/buildings-at-tufts-university"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("h2")
+    buildings=["Aidekman Arts Center","Alumnae Hall","Anderson Hall","Balch Arena Theater","Barum Hall","Bendetson Hall","Boston School of Occupational Therapy (BSOT)","Braker Hall","Cabot Center (The Fletcher School)","Carmichael Hall","Chase Center","Cohen Auditorium","Conference Bureau","Consens Gym","Curtis Hall","Dewick-MacPhie Dining Hall","Dowling Hall","Fine Arts House","Gantcher Center","Hill Hall","Lane Hall","Lewis Hall","Miller Hall","Miner Hall","Mugar Hall","Polin Center for Language and Cultural Studies"]
+    for i in range(0,len(tableData)):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def TulaneBuildings():
+    url="https://www.yumpu.com/en/document/view/7703177/buildings-by-number-tulane-university-admission#google_vignette"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("p")
+    buildings=[]
+    for i in range(7,len(tableData)-18):
+        buildings.append(tableData[i].get_text())
+    building_names = re.findall(r'\d+\s+(.+?)(?=\s+\d+|\Z)', buildings[0]) #REGULAR EXPRESSION since before we have just one list with all the numbers and names
+    for i in range(5):
+        building_names.pop(-1)
+    newBuildings=[]
+    for i in range(len(building_names)):
+        if building_names[i].isnumeric()==False:
+            newBuildings.append(building_names[i])
+    newBuildings[22]="Lavin-Bernick Center for University Life"
+    newBuildings[-1]="38 Office of Undergraduate Admission"
+    buildingList=[1,newBuildings, []]
+    return buildingList    #split it on the spaces, [0-9]+ ?, regex patterns finding unmbers
+def ChicagoBuildings():
+    url="https://registrar.uchicago.edu/faculty-staff/classroom-scheduling/buildings-directory-2/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(0,len(tableData)):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace("\xa0"," ")
+    buildings.pop(3)
+    buildingList=[1,buildings, []]
+    return buildingList
+def ColoradoBoulderBuildings():
+    url="https://www.colorado.edu/brand/how-use/text-tone/editorial-style-guide/building-names"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("li")
+    buildings=[]
+    for i in range(16,len(tableData)-30):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def ColoradoDenverBuildings():
+    url="https://www.cuanschutz.edu/offices/facilities-management/parking-transportation-maps/cu-denver-campus-permit-parking/campus-maps"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(11,27):
+        buildings.append(tableData[i].get_text())
+    for i in range(66,73):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace(" - Events on Campus","")
+        buildings[i]=buildings[i].replace(" -Events on Campus","")
+    buildingList=[1,buildings, []]
+    return buildingList
+def ConnecticutBuildings():
+    url="https://its.uconn.edu/network-refresh-project-complete/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(1,len(tableData),3):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].title()
+    buildingList=[1,buildings, []]
+    return buildingList
+def DelawareBuildings():
+    url="https://sites.udel.edu/it-ums/buildings/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("strong")
+    buildings=[]
+    for i in range(1,len(tableData)):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def DenverBuildings():
+    url="https://www.du.edu/registrar/faculty-staff-resources/course-scheduling-guide/room-building-list"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(2,len(tableData),2):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace('\n\t\t\t',' ')
+        buildings[i]=buildings[i].replace('\n',' ')
+    buildings.pop(3)
+    buildingList=[1,buildings, []]
+    return buildingList
+def FloridaBuildings():
+    url="https://en.wikipedia.org/wiki/List_of_University_of_Florida_buildings"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(1,len(tableData)-20,7):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace("\n"," ")
+    buildingList=[1,buildings, []]
+    return buildingList
+def HawaiiManoaBuildings():
+    url="https://manoa.hawaii.edu/campusmap/buildings/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("strong")
+    buildings=[]
+    for i in range(0,len(tableData)):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def HoustonBuildings():
+    url="https://uh.edu/infotech/services/facilities-equipment/supported-classrooms/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(64,len(tableData)-35):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def KentuckyBuildings():
+    url="https://efacts.uky.edu/List"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(1,len(tableData),4):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace("\n                        ","")
+        buildings[i]=buildings[i].replace("\n                    ","")
+    buildingList=[1,buildings, []]
+    return buildingList
+def LaVerneBuildings():
+    buildings=["Citrus Hall","Vista La Verne","The Oaks","Robert and Margaret Cogley Building","Arts and Communications Building","Barkely Building","Brandt Residence Hall","Bonita Building","Center for Advancement of Faculty Excellence","Central Services","Chapel","College of Business & Public Management","Dailey Theatre","Davenport Dining","E Street Building","ELS Language Center","Founders Hall","Graduate Academic Services","Hanawalt Fitness Center","Hanawalt House","Health Services","Hoover Building","Johnson Familiy Plaza","Landis Academic Center","Leo Hall","Lordsburg Building","Mainiero Hall","Miller Hall","Modular Classroom","Music Annex","Sneaky Park","South Quad","Sports Science & Athletic Pavilion","Stu-Han Residence Hall","University Advancement","Wilson Library","Woody Hall"]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def LouisvilleBuildings():
+    url="https://louisville.edu/registrar/registration/related_information/building_codes"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(6,len(tableData),4):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def MarylandBuildings():
+    url="https://en.wikipedia.org/wiki/List_of_University_of_Maryland,_College_Park_Campus_Buildings"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(2,len(tableData)-80,5):
+        buildings.append(tableData[i].get_text().strip())
+    buildingList=[1,buildings, []]
+    return buildingList
+def MarylandBaltimoreCountyBuildings():
+    url="https://www.umaryland.edu/designandconstruction/name-cross-reference/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(1,len(tableData),3):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def MassachusettsAmherstBuildings():
+    url="https://www.umass.edu/mail/campus-building-addresses"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(3,len(tableData),3):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace('\n\t\t\t\t','')
+    buildings.pop(131)
+    buildingList=[1,buildings, []]
+    return buildingList
+def MiamiBuildings():
+    url="https://en.wikipedia.org/wiki/Category:Buildings_and_structures_of_Miami_University"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(48,len(tableData)-22):
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def MichiganBuildings():
+    url="https://ro.umich.edu/calendars/schedule-of-classes/locations"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("p")
+    allText=[]
+    for i in range(0,len(tableData)-3):
+        allText.append(tableData[i].get_text())
+    buildings=[]
+    for i in range(len(allText)):
+        buildings.append(allText[i].split("\n")[1])
+    buildingList=[1,buildings, []]
+    return buildingList
+def NorthCarolinaChapelHillBuildings():
+    url="https://planroom.unc.edu/FastBuildingList.aspx?field=FacilID"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(18,len(tableData),2):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace("                                                         ","")
+        buildings[i]=buildings[i].replace("                                         ","")
+        buildings[i]=buildings[i].replace("                                      ","")
+        buildings[i]=buildings[i].replace('           ','')
+        buildings[i]=buildings[i].replace('    ','')
+        buildings[i]=buildings[i].replace("   ","")
+        buildings[i]=buildings[i].replace('  ','')
+    buildingList=[1,buildings, []]
+    return buildingList
+def NotreDameBuildings():
+    url="https://dulac.nd.edu/atoz/building-directory/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("h2")
+    buildings=[]
+    for i in range(0,len(tableData)):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace("\xa0"," ")
+    buildingList=[1,buildings, []]
+    return buildingList
+def OregonBuildings():
+    url="https://en.wikipedia.org/wiki/List_of_University_of_Oregon_buildings"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(0,len(tableData)-10,5):
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace("\n"," ")
+    buildingList=[1,buildings, []]
+    return buildingList
+def UPennBuildings():
+    url="https://facilities.upenn.edu/maps/locations"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("h2")
+    buildings=[]
+    for i in range(0,len(tableData)-1): 
+        buildings.append(tableData[i].get_text())
+    for i in range(6):
+        url=f'https://facilities.upenn.edu/maps/locations?page={i}'
+        req=requests.get(url)
+        soup=BeautifulSoup(req.content,"html5lib")
+        tableData=soup.findAll("h2")
+        for i in range(0,len(tableData)-1): 
+            buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def PittsburghBuildings():
+    url="https://www.capitalassets.pitt.edu/building-list"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(0,len(tableData),6): 
+        buildings.append(tableData[i].get_text().title())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace("\xa0"," ")
+    buildingList=[1,buildings, []]
+    return buildingList
+def RedlandsBuildings():
+    buildings=["Administration Building","Admissions Office","Alumni House","Ann Peppers Hall","Appleton Hall","Armacost Library","Art Studio","Baseball Stadium","Bookstore","Brown Amphitheater","Bulldog Café","Campus Events Office","Casa Loma Room","Chapel Annex","Chaplain's Office","Copy Center","Currier Gymnasium","Development Office","Duke Hall","Energy Center","Facilities Management","Farquhar Fields","Farquhar Utility Building","Field House","Financial Aid Office","Fine Arts","Fitness Center","Frederick Loewe Performance Hall","Gannett Center","Gallery","Greek Theatre","Gregory Hall","Hall of Letters","Hedco Hall","Hentschke Hall","Hornby Hall","Human Resources Office","Hunsaker University Center","Irvine Commons","Johnston Center","Jones Computer Center","Larsen Hall","Lewis Hall","Memorial Chapel","Office Services","Orton Center","Plaza Café","Post Office","President's Office","Public Safety Office","Quad","R Field","Redlands Symphony","Registrar","School of Business","School of Education","Softball Field","Student Accounts","Student Development Center","Student Health Center","Student Life Office","Ted Runner Stadium","Theatre Arts Building","Thompson Aquatic Center","Ticket Booth","Truesdail Speech Center","University Club","University Communications","University Hall","Verdieck Tennis Courts","Wallichs Theatre","Watchorn Hall","Willis Center","Anderson Hall","Bekins Hall","Bekins-Holt Hall","Brockton Apartments","California-Founders Halll","Central Avevnue Apartments","Cortner Hall","East Hall","Fairmont Hall","Grossmont Hall","Grove Apartments","Melrose Hall","Merriam Hall","North Hall","Williams Hall"]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def RochesterBuildings():
+    url="https://tech.rochester.edu/building-names/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(2,len(tableData),4): 
+        buildings.append(tableData[i].get_text().title())
+    buildingList=[1,buildings, []]
+    return buildingList
+def SanDiegoBuildings():
+    url="https://blink.ucsd.edu/sponsor/advancement/advancement-services/stewardship/named-buildings/index.html"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(7,len(tableData),7): 
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def SanFranciscoBuildings():
+    url="https://en.wikipedia.org/wiki/University_of_San_Francisco"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("ul")
+    buildings=[]
+    for i in range(46,47): 
+        buildings.append(tableData[i].get_text())
+    newBuildings=buildings[0].split("\n") #REGEX TO REMOVE PARENTHESES AND THE NUMBERS INSIDE THE PARENTHESES
+    buildings_without_parentheses = [re.sub(r'\s*\([^)]*\)', '', building) for building in newBuildings]
+    buildings_without_parentheses[-1]=buildings_without_parentheses[-1].replace("[30]","")
+    buildingList=[1,buildings_without_parentheses, []]
+    return buildingList
+def TexasAustinBuildings():
+    url="https://utdirect.utexas.edu/apps/campus/buildings/nlogon/facilities/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(0,len(tableData),4): 
+        buildings.append(tableData[i].get_text().title())
+    buildingList=[1,buildings, []]
+    return buildingList
+def VermontBuildings():
+    url="https://www.uvm.edu/~campus/tour/buildinghistories.html"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(6,len(tableData)): 
+        buildings.append(tableData[i].get_text())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace("\n              "," ")
+        buildings[i]=buildings[i].replace("\n          "," ")
+        buildings[i]=buildings[i].replace("    "," ")
+        buildings[i]=buildings[i].replace("   "," ")
+    locations_without_asterisk = [location for location in buildings if '*' not in location]
+    filtered_locations = [location for location in locations_without_asterisk if 'reet' not in location and location.strip() != '']
+    filtered_locations.remove("Angell Lecture Hall")
+    filtered_locations.remove("Buckham Hall")
+    filtered_locations.remove("Chittenden Hall")
+    filtered_locations.remove("Medical Alumni Bldg.")
+    filtered_locations.remove("University Store")
+    buildingList=[1,filtered_locations, []]
+    return buildingList
+def VirginiaBuildings():
+    url="https://en.wikipedia.org/wiki/Category:Buildings_of_the_University_of_Virginia"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(45,len(tableData)-22): 
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def WashingtonBuildings():
+    url="https://www.washington.edu/students/reg/buildings.html"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(39,len(tableData)-16): 
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def WestLosAngelesBuildings():
+    buildings=["Lobby","Library","UWLA School of Law","UWLA School of Business"]
+    buildingList=[1,buildings, []]
+    return buildingList
+def WisconsinMadisonBuildings():
+    url="https://www.map.wisc.edu/buildings/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(0,len(tableData),2): 
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def PacificBuildings():
+    buildings=["Academic Advising and Career Services Center","Admission Office","Alan and Olive Gardemeyer Field","Alex G. Spanos Center","Alumni House","Anderson Hall","Art Center","Bannister Hall","Baun Hall","Bechtel International Center",'Benerd College',"Bill Simoni Field","Biological Sciences Center","Biological Laboratories","Brookside Field","Buck Memorial Hall","Burns Tower","Calaveras Hall","Callison Hall","Carter House","Casa Jackson","Casa Werner","Ceramic Studio","Chambers Technology Center","Chan Family Hall","Chan Family Health Sciences Learning Center and Clinics Building","Classroom Building","Colliver Hall","Communication Department","Conservatory of Music, Faye Spanos Concert Hall","Covered Performance Center","Cowell Wellness Center","Dance Studio","DeMarcus Brown Studio, Theatre ARts","DeRosa University Center","Disability Services","Don and Karen DeRosa University Center","Eberhardt School of Business","Edward and Alice Long Memorial Hall","Eiselen House","Elbert Covell Hall","Engineering and Computer Science","Engineering and Computer Science South Campus Labs","Eve Zimmerman Tennis Center","Farley House","Finance Center","George Wilson Hall","Geosciences Center","Graduate School","The Grove","Hand Hall","Health Science Library","Human Resources","Humanities Wing","Hydraulics Laboratory","Janet Leigh Theatre","Jeannette Pwell Art Center","Jessie Ballantyne Hall","John Ballantyne Hall","John T. Chambers Technology Center","Khoury Hall","Knoles Hall","Library","Long Theatre","McCaffrey Center","McConchie Hall","Military and Veterans Student Center","Monagan Hall","Morris Chapel","Olson Hall","Owen Hall","Pacific House","Price House","Psychology Department","Public Safety","Raymond Great Hall","Recital Hall","Rehearsal Hall","Ritter House","Robb Garden","School of Engineering and Computer Science","Weber Hall","Wemyss Hall","William Knox Holt Memorial Library"]
+    buildingList=[1,buildings, []]
+    return buildingList
+def PeopleBuildings():
+    buildings=["Online"]
+    buildingList=[1,buildings, []]
+    return buildingList
+def WestBuildings():
+    buildings=["University of the West Library", "University of the West Residential Halls"]
+    buildingList=[1,buildings, []]
+    return buildingList
+def UrsinusBuildings():
+    buildings=["The Commons","Corson Hall","Berman Museum of Art","Olin Hall","Bomberger Hall","Myrin Library","Pfhaler Hall","Innovation and Discovery Center","Thomas Hall","Wellness Center","The Kaleidoscope","Wismer Center","Campus Safety","IIE Center","Floy Lewis Bakes Center","Ritter Hall","Stauffer Hall","Paisley Hall","Beardwood Hall","Brodbeck Hall","Wilkinson Hall","Curtis Hall","Reimert Hall","201 9th Ave.","New Hall","Richter Hall","North Hall","Clamer Hall","476 Main St. CEDC Office","Commonwealth","Maples Hall","Fetterolf House","Sturgis House","Hobson Hall","Shreiner Hall","Musser Hall","Yost House","Duryea Hall","Zwingli Hall","624 Main St.","Olevian Hall","Schaff Hall","Lynnewood Hall","Omwake Hall","777 Main St.","Wicks House","Elliot House","Todd Hall","Isenberg Hall","732 Main St.","942 Main St.","944 Main St."]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def VanderbiltBuildings():
+    url="https://cpc-fis.vanderbilt.edu/map/campusviewer/infopages/BuildingDirectory.html"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(1,len(tableData),2): 
+        buildings.append(tableData[i].get_text().title())
+    for i in range(len(buildings)):
+        buildings[i]=buildings[i].replace("Th","th")
+        buildings[i]=buildings[i].replace("Nd","nd")
+        buildings[i]=buildings[i].replace("21St","21st")
+        buildings[i]=buildings[i].replace("the","")
+    buildingList=[1,buildings, []]
+    return buildingList
+def VanguardBUildings():
+    buildings=["Scott Academic Center","The East Wing Scott Academic Center","Samson's Cafe","Laguna Hall","Huntington Hall","Gymnasium","The Cove/Bookstore/Outtakes","The Café","Newport Hall","Balboa Hall","Catalina Hall","Theatre Modular","O. Cope Budge Library","Lyceum Theatre","Information Technology","Human Resources","Smith Hall","Natural Sciences Offices","Music Studios","Needham Chapel","Forrest Room/Campus Safety","Music and Theatre Offices","Newport Mesa Church","The Cove Office Modular","Social Sciences Offices","Psychology Offices","Grad Clinical Psych","Classrooms","Facilities Offices/Central Plant","NMC Dome","Heath Academic Center","Nursing Annex/Mailroom"]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def VassarBuildings():
+    url="https://vcencyclopedia.vassar.edu/category/buildings-grounds-technology/buildings/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("h2")
+    buildings=[]
+    for i in range(0,len(tableData)): 
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def VirginiaTechBuildings():#added 5/18/24
+    url="https://www.vt.edu/about/locations/buildings.html"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a",{"class": "vt-subnav-droplist-item"})
+    buildings=[]
+    for i in range(0,len(tableData)): 
+        buildings.append(tableData[i].get_text().strip())
+    buildingList=[1,buildings, []]
+    return buildingList
+
+def VirginiaCommonwealthBuildings():
+    url="https://maps.vcu.edu/monroepark/list.html"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(33,len(tableData)-15): 
+        buildings.append(tableData[i].get_text())
+    filtered_locations = [location for location in buildings if 'Back to top' not in location and location.strip() != ''] 
+    buildingList=[1,filtered_locations, []]
+    return buildingList
+def WakeForestBuildings():
+    url="https://en.wikipedia.org/wiki/Category:Wake_Forest_University_buildings"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(45,55): 
+        buildings.append(tableData[i].get_text())
+    buildingList=[1,buildings, []]
+    return buildingList
+def WashUBuildings():
+    url="https://wustl.edu/about/campuses/danforth-campus/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("a")
+    buildings=[]
+    for i in range(133,len(tableData)-47): 
+        buildings.append(tableData[i].get_text())
+    filteredBuildings= [i for i in buildings if 'Top ↑' not in i] 
+    buildingList=[1,filteredBuildings, []]
+    return buildingList
+def WesleyanBuildings():
+    url="https://www.wesleyan.edu/registrar/general_information/building_codes.html"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(1,len(tableData),4): 
+        buildings.append(tableData[i].get_text().title())
+    buildingList=[1,buildings, []]
+    return buildingList
+def WestcliffBuildings():
+    buildings=["Academic Resource Center"]
+    buildingList=[4,buildings,"Main Campus - Irvine, California","Los Angeles Campus - Santa Monica, California","Miami Campus - Miami, Florida","Orlando Campus - Orlando, Florida"]
+    return buildingList
+def WesternStateBuildings():
+    buildings=["Western State College of Law Library","Main Building","Administration Building"]
+    buildingList=[1,buildings,[]]
+    return buildingList
+def WesternHealthSciencesBuildings():
+    url="https://www.westernu.edu/facilities/campus-hours/#accordion-1-button"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(0,len(tableData),4): 
+        buildings.append(tableData[i].get_text())
+    buildings.pop(-2)
+    buildings[3]="Pet Health Center (PHC)"
+    buildingList=[1,buildings, []]
+    return buildingList
+def WestmontBuildings():
+    url="https://www.westmont.edu/residence-hall-room-descriptions"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("strong")
+    buildings=[]
+    for i in range(0,len(tableData)-1): 
+        buildings.append(tableData[i].get_text().title())
+    add=["Adams center for the Visual Arts","Administrative Building B","Biology Laboratory","Carr Field","Carroll Hall","Conference Services","Deane Chapel","Deane Field","Deane Hall","Gaede Institute","Health and Counseling Center","Hubbard Hall","Kerr Memorial Center","Kerrwood Hall","Lovik Field","Martin Institute/Willard Center","Murchison Physical Education Complex and Pool","Music Building","Observatory","Porter Center","Porter Hall/Theatre","Reyonlds Hall","Clark Classroom","Nancy Voskuyl Prayer Chapel","Voskuyl Library","Westmont Ridley-Tree Museum of Art","Whittier Hall","Winter Hall for Science and Mathematics"]
+    for i in range(len(add)):
+        buildings.append(add[i])
+    buildingList=[1,buildings, []]
+    return buildingList
+def WhittierBuildings():
+    url="https://www.whittier.edu/reslife/halls"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("h2")
+    buildings=[]
+    for i in range(12,len(tableData)-2): 
+        buildings.append(tableData[i].get_text().strip())
+    add=["A.J. Villalobos Hall","Arnold Hall","Broadoaks Children's School","Campbell Residence Hall","College Hall","Counseling Center","Deihl Hall","Dezember Alumni House/Faculty Master House","Earlham House","Garrett Faculty Master House","Graham Athletic Center","Guilford House","Hamilton House","Hanover House","Harris Amphitheatre","Hartley Faculty Master House","Hastings House","Hoover Hall","Memorial Chapel","Memorial Stadium","Mendenhall Building","Philadelphia House","Platner Hall","Redwood Building","The Rock","Rose Hills Foundation Center for Library and Information Resources","Ruth B. Shannon Center for the Performing Arts","Slade Aquatic Center","Stauffer Science Center","Wanberg Residence Hall","Wardman Gym/Art center","Wardman Hall","Weingart Hall"]
+    for i in range(len(add)):
+        buildings.append(add[i])
+    buildingList=[1,buildings, []]
+    return buildingList
+def WoodburyBuildings():
+    buildings=["Ahmanson Main Space","Screening Room","San Diego Showroom","Wedge Gallery","Nan Rae Gallery","Academic Affairs","Admissions","Alumni Quad","Alumni Gallery","ASG House/Pool","Bookstore","Bowman Conference Room","Business Office","Cabrini Hall","Career Services","Central Services","Chandler Dean's Suite","Counseling Services","Deisgn Center","Development & Alumni Relations","Enkebool Courtyard","Fletcher Jones Foundation Auditorium","Health Services","Hensel Hall","Information & Security",'Information Technology',"Institute for Transdisciplinary Studies Offices","Judith Tamkin Fashion Gallery","Julius Shulman Institute","Isaacs Faculty Center","Kirby Hall Entertainment Media","Kirkendall Conference Room","Kummer Business Faculty Center","Los Angeles Times Library","Lynn Saffell Board Room","Malburg Atrium","Marketing & Enrollment","Miller Hall","Naidorf Hall","New Woody's","Nielsen Conference Room","North Hall","Office of the President","Powell Gallery","Ralph M. Parsons Studio","School of Architecture Offices","School of Business","School of Media, Culture & Design Offices","South Hall","Student Development","Tamkin Business Plaza","Nielsen Athletic Complex","Whitten Student Center","Wilshire Hall","Writing Center"]
+    buildingList=[1,buildings, []]
+    return buildingList
+def WorcesterBuildings():
+    url="https://www.wpi.edu/about/locations"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(0,len(tableData)): 
+        buildings.append(tableData[i].get_text().strip())
+    buildingList=[1,buildings, []]
+    return buildingList
+def YaleBuildings():
+    url="https://catalog.yale.edu/ycps/building-abbreviations/"
+    req=requests.get(url)
+    soup=BeautifulSoup(req.content,"html5lib")
+    tableData=soup.findAll("td")
+    buildings=[]
+    for i in range(1,len(tableData),2): 
+        buildings.append(tableData[i].get_text().strip())
+    buildingList=[1,buildings, []]
+    return buildingList
+def ZaytunaBuildings():
+    buildings=["Euclid Dormitory","Maryam Bint Bwayba Dormitory"]
+    buildingList=[2,buildings,["Lower Campus","Upper Campus"]]
+    return buildingList
 
 
-
-    
-
-
-#QUESTIONS:
-#1) return doesn't seem to be returning anything in the terminal but switching it to print works.
-#2) for universities with multiple campuses, should I make separate building lists for each campus or put them all in one list?
-#3) for Andrews University, each element in the building list is like \n\t\t\t\tWelcome Center (Globe). How do I get rid of the /n/t in front?
-#4) for ArtCenter College of Design, it has two campuses with its own buildings as well as three art studios. Right now the method only prints out the 5 facilities (in general), not the individual buildings within the two campuses. 
-# format of [5, [[],[],[],[][]], [Name of campus 1, campus 2]] empty list for third elemetn for schools w 1 campsu
-
-#5) for Barnard University 
-        #Mixed within the list are elements like lobbies, Classrooms, etc: should those be removed from the list manually like buildingList[15].remove()
-#yes
-        #['ALTSCHUL HALL', 'Altschul Atrium', 'Tunnel Gallery', 'THE DIANA CENTER', 'Liz’s Place', 'Millicent Carey McIntosh Student Dining Room', 'Judith Shapiro Faculty Room', 'Louise Heublein McCagg ’59 Gallery', 'ELLIOTT HALL', 'Bella & Elsa S. Mehler Parlor', 'FUTTER FIELD\xa0', 'THE QUAD', 'The Arthur Ross Courtyard', 'Weber Living Room', "Jan R. and Marley Blue Lewis '05 Parlor", 'LOBBIES', 'Event Spaces', 'BARNARD HALL', 'Sulzberger Parlor', 'James Room', 'THE DIANA CENTER', 'Event Oval', 'MILBANK HALL', 'Ella Weed Room', 'THE QUAD', 'Helene L. Kaplan ’53 Tower Suite', 'Classrooms', 'Altschul Hall classrooms', 'Barnard Hall classrooms', 'Diana Center classrooms', 'Milbank Hall classrooms', 'Sulzberger Hall classroom']
-#6) for Berklee College of Music, the buildings are in <a> link tags, but I''m having trouble finding the right <a> tags. 
-#7) for brandeis univeresity, there is the same problem with <a> link tags. 
-#8) for brown university, each element has \n at the end and .strip() gives an error that Nonetype is not callable.
-
-#9) for California Lutheran university, the names are in <span> but the list returned is empty.
-#10) for California Miramar University, there were really no building lists available so I just put in the 3 campus locations in the list.
-
-#UNIVERSITIES THAT DO NOT WORK at all: 
-#Alliant International University, American heritage university of southern california, american jewish university, berklee college of music, brandeis uni, 
-
-#NOTES:
-#1) I removed Berean Bible College bc there wasn't enough info
-#2) Boston College has 4 campuses - 1 main one and other not as big for other internal schools like law shcool for example. I only included the main chestnut hill campus. 
-#3) for California Institute of the Arts, the buildings were in <articles> and it was throwing a weird error so I manually inputted the few number of buildings.
-#MULTIPLE CAMPUSES: ArtCenter College of Design
-
-#Uni's without a building list - Alliant International University, American heritage university of southern california, american jewish university
-
-
-#3/19/24
-#Cal State LA has some issues 
-#deleted Claremont lincoln university bc its 100% online, does that mean firebase needs to be updated?
-
-#3/26/24
-#what if i want to add a university? the buildings lat and long information etc in firebase?
-#florida state university - code finds nothing, buildings not showing up here.
-#in database.py, whats the point of def delete(self): and def upload_file(self, file_name, firebase_path):
-
-#github
-#can multiple ppl edit one android studio flutter project?
-#github ?
-
-#4/13/24
-#lehigh unviersity
-#michigan state
-
-#4/20/24
-#purdue uni
-'''
-
-Alliant International University', 'American Heritage University of Southern California',
-               'American Jewish University', 'Andrews University', 'ArtCenter College of Design', 'Barnard College',
-                'Biola University', 'Boston College', 'Boston University', 'Bowdoin College','Brandeis University',
-               'Brown University', 'California Institute of Integral Studies', 'California Institute of Technology',
-               'California Institute of the Arts', 'California Lutheran University', 'California Miramar University',
-               ***'California Polytechnic State University, Pomona', 'California South Bay University',
-                'California State University Channel Islands',
-               'California State University San Marcos', 'California State University, Bakersfield',
-               'California State University, Chico', 'California State University, East Bay',
-               'California State University, Fresno', 'California State University, Fullerton',
-               'California State University, Los Angeles', 'California State University, Monterey Bay',
-               'California State University, Northridge', 'California State University, Sacramento',
-               'California State University, San Bernardino', 'California State University, Stanislaus',
-               'Cambridge College', 'Carnegie Mellon University', 'Case Western Reserve University',
-               'Chapman University', 'Charles R. Drew University of Medicine and Science',
-               'Claremont Graduate University', 'Claremont Lincoln University', 'Claremont McKenna College', 'Colby College', 'Colgate University','College of the Holy Cross',
-               'Columbia University', ****'Concordia University Irvine', 'Cornell University', 'Dartmouth College',
-               'DeVry University', 'Deep Springs College', 'Dominican University of California', 'Drexel University',
-               'Duke University', 'Eckerd College','Emory University',  'Florida State University',
-               'George Mason University', 'George Washington University','Georgetown University', 'Golden Gate University',
-               'Graduate Theological Union', 'Grinnell College','Hamilton College','Harvard University', 'Harvey Mudd College', 'Haverford College','Holy Names University',
-               'Howard University', 'Humphreys University', 'Illinois Institute of Technology',
-               'Indiana University Bloomington', 'Johns Hopkins University', 
-               'La Sierra University',
-                'Laguna College of Art and Design', 'Lehigh University',
-               'Loyola Marymount University', 'Menlo College',
-               'Michigan State University', 'Middlebury College', 'Morehouse College','National University', 'New York University','North Carolina State University',
-               'Northeastern University', 'Northwestern Polytechnic University', 'Northwestern University',
-               'Notre Dame de Namur University', 'Oak Valley College', 'Oberlin College','Occidental College', 
-               #'Oikos University',
-               'Otis College of Art and Design', 'Pacific Lutheran Theological Seminary', 'Pacific Oaks College',
-               'Pacific School of Religion', 'Pacific Union College', 'Pacifica Graduate Institute',
-               'Palo Alto University', 'Pennsylvania State University', 'Pepperdine University', 'Pitzer College', 'Point Loma Nazarene University',
-               'Pomona College', 'Princeton University', 'Providence Christian College', 'Purdue University',
-               'Rensselaer Polytechnic Institute', 'Rhode Island School of Design','Rice University', 'Rutgers University', "Saint Mary's College of California",
-               'Samuel Merritt University', 'San Diego Christian College', 'San Diego State University',
-               'San Francisco State University', 'San Joaquin College of Law', 'Santa Clara University',
-               'Saybrook University', 'Scripps College', 'Simpson University', 'Smith College','Soka University of America',
-               'Sonoma State University', 'Southern Methodist University', 'Southwestern Law School',
-               'Stanford University', 'Swathmore College','Syracuse University', 'Temple University', 'Texas A&M University', 'The College of New Jersey'
-               "The Master's University", 'The New School','Thomas Aquinas College', 'Touro University California', 'Tufts University',
-               'Tulane University', 'University of Antelope Valley', 'University of Chicago','University of Colorado Boulder', 'University of Colorado Denver','University of Connecticut',
-               'University of Denver', 'University of Florida', 'University of Hawaii at Manoa',
-               'University of Houston', 'University of Kentucky','University of La Verne', 'University of Louisville',
-               'University of Maryland, Baltimore County', 'University of Massachusetts Amherst', 'University of Miami',
-               'University of Michigan', 'University of North Carolina at Chapel Hill', 'University of Notre Dame', 'University of Oregon',
-               'University of Pennsylvania', 'University of Pittsburgh', 'University of Redlands',
-               'University of Rochester', 'University of San Diego', 'University of San Francisco',
-           'University of Texas at Austin', 'University of Vermont','University of Virginia',
-               'University of Washington', 'University of West Los Angeles', 'University of Wisconsin-Madison',
-               'University of the Pacific', 'University of the People', 'University of the West', 'Ursinus College',
-               'Vanderbilt University', 'Vanguard University', 'Vassar College','Virginia Commonwealth University',
-               'Wake Forest University', 'Washington University in St. Louis', 'Wesleyan University', 'Westcliff University',
-               'Western State College of Law', 'Western University of Health Sciences', 'Westmont College',
-               'Whittier College', 'Woodbury University', 'Worcester Polytechnic Institute', 'Yale University',
-               'Zaytuna College']
-
-'''
+#print(getUniversityBuildings("Saint Joseph's University - Hawk Hill Campus")) #print should be commeneted out when running other files.
