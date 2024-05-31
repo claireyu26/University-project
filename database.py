@@ -45,12 +45,16 @@ class StorageManager:
            "desc": getInfo(i)
         })
 
+#   def updateSchool(self,university):
+#      doc=self.db.collection(university).document("descriptions")
+#      doc.create({
+#         "desc": getInfo(university)
+#      })
   def updateSchool(self,university):
-     doc=self.db.collection(university).document("descriptions")
-     doc.create({
+     doc=self.db.collection("Universities").document(university)
+     doc.update({
         "desc": getInfo(university)
      })
-
 
   def delete(self):#whats the point of this delete
      for i in school_list:
@@ -59,15 +63,26 @@ class StorageManager:
         #first do doc.create to set it up in firestore, then can change it to update afterwards   
         
 #updated 3/9/24
+#   def setUniversityImages(self, university, data):
+#     collection=self.db.collection(university).document("buildings")
+#     collection.set(data, merge=True) #.set() = if theres already a collection or document then add to it
   def setUniversityImages(self, university, data):
-    collection=self.db.collection(university).document("buildings")
-    collection.set(data, merge=True) #.set() = if theres already a collection or document then add to it
+    collection=self.db.collection("Universities").document(university)
+    collection.set({"school_images":data}) #.set() = if theres already a collection or document then add to it
 
+    #for all the schools, just comment out for now
 data=StorageManager()
-        
-for i in school_list:
-  data.setUniversityImages(i, getNearbyBuildings(i))
 
-data.updateSchool("Georgia Institute of Technology")
+if __name__=='__main__': 
+   # for i in school_list:
+   #   print(i)
+   #   data.setUniversityImages(i, getNearbyBuildings(i))
+   for i in school_list:
+     print(i)
+     data.setUniversityImages(i, getNearbyBuildings(i))
+     data.updateSchool(i)
+   
 
+   
 
+# data.updateSchool("Virginia Tech")
