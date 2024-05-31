@@ -8,6 +8,8 @@ import urllib.request
 from universities import school_list
 from database import data
 from buildings import getUniversityBuildings
+import certifi
+import ssl
 
 #default variable= if you don't put an argument for function paramaters, will default to default variable
 #=5 is default variable
@@ -22,7 +24,10 @@ def getOriginalImages(query,maximages=10):
     #ijn is using the 0st page
     #query is what you're searching
     #hl is english language, gl is country searching from
-    url= requests.get("https://www.google.com/search", params=params, headers=headers,timeout=30)
+
+    certifi_context = ssl.create_default_context(cafile=certifi.where()) #added 5/26
+
+    url= requests.get("https://www.google.com/search", params=params, headers=headers,timeout=30, verify=certifi_context) #verify=certifi_context added 5/26/24 sunday 1 hr class w Patrick
     #if it doesn't work in 30 sec, then timeout/stop
     soup=BeautifulSoup(url.text, "lxml")
     #lxml is specific webpage format
@@ -85,18 +90,44 @@ def extractFullImages(scriptTag, maximages):
     return (full_res_images) 
 
 def saveImages(buildings,university):
+    listUrl=[]
     for i in buildings:
-        images=getOriginalImages(query=f"{i} building - {university}")
+        images=getOriginalImages(query=f"{i} building - {university}", maximages=4) #, maximages=4 added 5/18/24 1:45pm
+        print(images)
         for local_path in images:
-            data.upload_file(local_path,firebase_path=f'{university}/building_pictures/{local_path[7:]}') #indexing from 7 to the end of the local_path variable gets rid of Images/ so that firebase does not make a new collection of Images
+            url=data.upload_file(local_path,firebase_path=f'{university}/building_pictures/{local_path[7:]}') #indexing from 7 to the end of the local_path variable gets rid of Images/ so that firebase does not make a new collection of Images
+            #url for each picture
+            listUrl.append(url)
+    return listUrl
+#name of university/ building_pictures/ url
+#currently, this is not used in firebase
+if __name__=='__main__': 
+    # for i in school_list:
+    #     allBuildings=getUniversityBuildings(i)
+    #     if allBuildings[0]==1:
+    #         saveImages(allBuildings[1],i)
+    #     else:
+    #         allBuildingsCombined=[]
+    #         for x in allBuildings[1]:
+    #             allBuildingsCombined+=x #this works
+    #         saveImages(allBuildingsCombined,i)
 
-for i in school_list:
-    allBuildings=getUniversityBuildings(i)
-    if allBuildings[0]==1:
-        saveImages(allBuildings[1],i)
-    else:
-        allBuildingsCombined=[]
-        for x in allBuildings[1]:
-            allBuildingsCombined+=x #this works
-        saveImages(allBuildingsCombined,i)
+    #5/18/24 2:19 pm with Mrs. Marisabel - Trying to create a new thing under 'buildings' in firebase for each school that holds 4 images of each building of the school (like multiple angles)
+    
+    #edited 5/26
+
+    #schoolList=['Virginia Tech']
+    for i in school_list:
+        allBuildings=getUniversityBuildings(i)
+        print(allBuildings)
+        print(i)
+        for j in allBuildings[1]:
+            allUrl=saveImages(j,i)
+
+            print(allUrl)
+            print(j)
+        
+            data.setUniversityImages(i,{"Images": allUrl})
+            
+
   
