@@ -4,19 +4,24 @@ import requests
 from universities import school_list
 import json
 
-api_key="AIzaSyASybuNbMls86eHzVd4JVSraLVgK1Yvxgg"
+#api_key="AIzaSyASybuNbMls86eHzVd4JVSraLVgK1Yvxgg"
+api_key="AIzaSyC6soeX4oFhvfw4wiC1LhtDk-pr7nDf6QI" #new api key made 5/18 with marisabel
 
 def getNearbyBuildings(university):
     return(getSchoolInfo(university))
 def getSchoolInfo(university):
     #uses google apis to put all of the school information into our own dictionary called location
-    url=f"https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyASybuNbMls86eHzVd4JVSraLVgK1Yvxgg&input={university}&inputtype=textquery&fields=name,formatted_address,geometry"
+#    url=f"https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyASybuNbMls86eHzVd4JVSraLVgK1Yvxgg&input={university}&inputtype=textquery&fields=name,formatted_address,geometry"
+
+    url=f"https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key={api_key}&input={university}&inputtype=textquery&fields=name,formatted_address,geometry"
+
     result=requests.get(url)
     result=json.loads(result.text)
 
-    #print(result)
+    print(result)
 
     result=result["candidates"]
+
     correctCandidate=""
     #for loop and if is checking if it exists and finding the right location 
     for candidate in result:
@@ -73,15 +78,16 @@ def getPhotos(photoReference):
     url=f"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference={photoReference}&key={api_key}"
     return url
 
-x=0
-schoolInfoDict={}
-for i in school_list:
-    schoolInfo=getNearbyBuildings(i)
-    schoolInfoDict[i]=schoolInfo
-    x+=1
-    print(x)
+if __name__=="__main__": 
+    x=0
+    schoolInfoDict={}
+    for i in school_list:
+        schoolInfo=getNearbyBuildings(i)
+        schoolInfoDict[i]=schoolInfo
+        x+=1
+        print(x)
 
-with open("schoolInfo.json", "w") as outputFile:
-    json.dump(schoolInfoDict, outputFile)
+    with open("schoolInfo.json", "w") as outputFile:
+        json.dump(schoolInfoDict, outputFile)
 
 
