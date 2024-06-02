@@ -24,7 +24,6 @@ class _recommendationResultsState extends State<recommendationResults> {
   void initState(){
     super.initState(); //runs the normal function
     _openAI=OpenAI.instance.build(
-        token: "sk-proj-diqK4Tgtd32GFMtBFNwXT3BlbkFJ1PLHpYOIlaM3dfHWovJ3",
         baseOption: HttpSetup(receiveTimeout: Duration(seconds:30))
     ); //timeout if it takes longer than 30 sec to receive anwser
     chatGPTCall();
