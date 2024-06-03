@@ -112,7 +112,7 @@ if __name__=='__main__':
     #             allBuildingsCombined+=x #this works
     #         saveImages(allBuildingsCombined,i)
 
-    #5/18/24 2:19 pm with Mrs. Marisabel - Trying to create a new thing under 'buildings' in firebase for each school that holds 4 images of each building of the school (like multiple angles)
+    #5/18/24 2:19 pm - Trying to create a new thing under 'buildings' in firebase for each school that holds 4 images of each building of the school (like multiple angles)
     
     #edited 5/26
 
